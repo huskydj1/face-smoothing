@@ -1,28 +1,28 @@
-[![Build Status](https://travis-ci.com/5starkarma/face-smoothing.svg?branch=main)](https://travis-ci.com/5starkarma/face-smoothing) [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-
-
 # Face Smoothing: Detection and Beautification
 
-Input Image             |  Output Image w/ Facial Smoothing
-:-------------------------:|:-------------------------:
-![alt text](https://github.com/5starkarma/face-smoothing/blob/main/data/images/hillary_clinton.jpg?raw=true "Input image")  |  ![alt text](https://github.com/5starkarma/face-smoothing/blob/main/data/output/output_0.jpg?raw=true "Output image")
----
-OpenCV implementation of facial smoothing. Facial detection is done using an pretrained TensorFlow face detection model. Facial smoothing is accomplished using the following steps:
+## Adapted from [5starkarma's Original Repository](https://github.com/5starkarma/face-smoothing)
 
-- Change image from BGR to HSV colorspace
-- Create mask of HSV image
-- Apply a bilateral filter to the Region of Interest
-- Apply filtered ROI back to original image
+OpenCV implementation of facial smoothing. 
 
----
+General Pipeline:
 
-## Install
-```
-git clone https://github.com/5starkarma/face-smoothing.git
-cd face-smoothing
-```
+- Face Detection
+- Filtering
+        - Change image from BGR to HSV colorspace
+        - Create mask of HSV image
+        - Apply a bilateral filter to the Region of Interest
+        - Apply filtered ROI back to original image
+- Output
+
+Areas for Improvement:
+
+- Face segmentation to only blur skin regions
+- Different Filtering Schemas (not just smoothing, contouring too)
+
 ## Run
+
 ```
+
 python3 infer.py --input 'path/to/input_file.jpg' (Input file - image, video, or folder with images and/or videos - default is hillary_clinton.jpg)
                          'can/handle/videos.mp4'
                          'as/well/as/directories'
@@ -33,7 +33,9 @@ python3 infer.py --input 'path/to/input_file.jpg' (Input file - image, video, or
 #### Example: --save-steps flag
 ![alt text](https://github.com/5starkarma/face-smoothing/blob/main/data/output/combined_0.jpg?raw=true "Processing steps")
 
-## TODO
+
+<details>
+        <summary>Work completed by 5starkarma</summary>
 - [X] Finish documentation and cleanup functions
 - [X] Reduce input image size for detections
 - [X] Fix combined output
@@ -44,3 +46,5 @@ python3 infer.py --input 'path/to/input_file.jpg' (Input file - image, video, or
 - [ ] Apply different blurring techniques/advanced algo using facial landmarks to blur only skin regions
 - [ ] Unit tests
 - [ ] Run time tests on units
+
+</details>
