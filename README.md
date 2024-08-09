@@ -2,7 +2,7 @@
 
 ## Adapted from [5starkarma's Original Repository](https://github.com/5starkarma/face-smoothing)
 
-OpenCV implementation of facial smoothing. 
+OpenCV implementation of facial smoothing.
 
 General Pipeline:
 
@@ -21,7 +21,7 @@ Areas for Improvement:
 
 ## Run
 
-```
+```python
 
 python3 infer.py --input 'path/to/input_file.jpg' (Input file - image, video, or folder with images and/or videos - default is hillary_clinton.jpg)
                          'can/handle/videos.mp4'
@@ -30,12 +30,13 @@ python3 infer.py --input 'path/to/input_file.jpg' (Input file - image, video, or
                  --save_steps 'path/to/file.jpg' (Concats images from each step of the process and saves them)
                  --show-detections (Saves bounding box detections to output)
 ```
-#### Example: --save-steps flag
+
+### Example: --save-steps flag
+
 ![alt text](https://github.com/5starkarma/face-smoothing/blob/main/data/output/combined_0.jpg?raw=true "Processing steps")
 
-
 <details>
-        <summary>Work completed by 5starkarma</summary>
+<summary>Work completed by 5starkarma</summary>
 - [X] Finish documentation and cleanup functions
 - [X] Reduce input image size for detections
 - [X] Fix combined output

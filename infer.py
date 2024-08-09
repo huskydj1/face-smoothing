@@ -2,6 +2,7 @@ import os
 import argparse
 import yaml
 import time
+import numpy as np
 
 import cv2
 import matplotlib
@@ -48,6 +49,9 @@ def parse_args():
     parser.add_argument('--save-steps', 
                         action='store_true',
                         help='Saves each step of the image.')
+    parser.add_argument('--show-sidebyside',
+                        action='store_true',
+                        help='Saves side by side comparison of input and output images.')
     args = parser.parse_args()
     # assert args.image_shape is None or len(args.image_shape) == 2, \
     #     'You need to provide a 2-dimensional tuple as shape (H,W)'
@@ -95,12 +99,26 @@ def main(args):
         elif is_image(input_file):
             # Load image
             input_img = load_image(input_file)
+            print("INPUT IMAGE SHAPE", input_img.shape)
+
             # Process image
             img_steps = process_image(input_img, cfg, net)
+            print("LENGTH OF IMG_STEPS", len(img_steps))
+            print("FINAL IMAGE SHAPE", img_steps[-1].shape)
+
             # Save final image to specified output filename
             out_filename = os.path.join(args.output, cfg['image']['output'])
+
             # Check for --show-detections flag
             output_img = check_if_adding_bboxes(args, img_steps)
+            print("OUTPUT IMAGE SHAPE", output_img.shape)
+
+            if args.show_sidebyside:
+                # Concatenate Input and Output images and save
+                assert not np.array_equal(input_img, output_img)
+                sidebyside_img = np.concatenate((input_img, output_img), axis = 1)
+                sidebyside_saved = save_image(f"{out_filename}SBS_", sidebyside_img)
+
             # Save image
             img_saved = save_image(out_filename, output_img)
 

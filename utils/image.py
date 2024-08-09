@@ -54,10 +54,11 @@ def check_img_size(img):
     # Retrieve image size
     height, width = img.shape[:2]
     # If image h is > 720 or w is > 1080, resize
-    if height > 720 or width > 1080:
-        img = resize_image(img, 
-                           width=720 if width > 720 else None, 
-                           height=1080 if height > 1080 else None)
+    # NOTE: DON'T DOWNSIZE IMAGES
+    # if height > 720 or width > 1080:
+    #     img = resize_image(img, 
+    #                        width=720 if width > 720 else None, 
+    #                        height=1080 if height > 1080 else None)
     return img
 
 
@@ -85,6 +86,9 @@ def process_image(input_img, cfg, net):
     input_img = check_img_size(input_img)
     # Detect face
     detected_img, bboxes = detect.detect_face(cfg, net, input_img)
+
+    print(bboxes)
+
     # Smooth face and return steps
     output_img, roi_img, hsv_mask, smoothed_roi = smooth.smooth_face(cfg,
                                                                      input_img, 
@@ -156,6 +160,7 @@ def save_image(filename, img):
     Bool : bool
         True if image save was success
     """
+    print("CALL FROM SAVE_IMAGE", filename)
     # Create filename
     filename = create_img_output_path(filename)
     # Save image
